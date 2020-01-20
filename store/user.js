@@ -33,7 +33,12 @@ const actions = {
         const { role } = getters.getUser;
         if (getters.flagSession) {
             PRIVATE_MODULES_URL[role] == route;
-            return true
+            const { status } = auth.isTokenValid()
+            if (!status) {
+              localStorage.clear();
+              $nuxt._router.push('/login');
+            }
+            return true;
         };
         return false;
 
